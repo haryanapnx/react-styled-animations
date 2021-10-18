@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled, { keyframes } from 'styled-components';
 
+type Timers = string | number
+
 const fadeInAnimation = keyframes`
   from: {
     opacity: 0
@@ -10,14 +12,23 @@ const fadeInAnimation = keyframes`
   }
 }`;
 
-const FadeInDiv = styled.div`
+const FadeInDiv = styled.div <{ timer: Timers}>`
   animation: 3s ${fadeInAnimation};
 `;
 
-const FadeIn: React.FC = ({ children }): JSX.Element => {
+
+export interface FadeInProps {
+  timer: Timers
+}
+
+const FadeIn: React.FC<FadeInProps> = ({ children, timer  }): JSX.Element => {
   return (
-    <FadeInDiv>{children}</FadeInDiv>
+    <FadeInDiv timer={timer}>{children}</FadeInDiv>
   )
+}
+
+FadeIn.defaultProps = {
+  timer: 3
 }
 
 export default FadeIn;
